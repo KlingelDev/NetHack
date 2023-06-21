@@ -259,6 +259,13 @@ WINGEMSRC = ../win/gem/wingem.c ../win/gem/wingem1.c ../win/gem/load_img.c \
 	../win/gem/gr_rect.c tile.c
 WINGEMOBJ = wingem.o wingem1.o load_img.o gr_rect.o tile.o
 #
+# Files for a Websocket port
+#
+WINWSSRC = ../win/websocket/ws_init.c ../win/websocket/ws_main.c \
+           ../win/websocket/ws_socket.c
+WINWSOBJ = ws_init.o ws_main.o ws_socket.o
+
+#
 # Files for a BeOS InterfaceKit port -- not ready for prime time
 WINBESRC =
 WINBEOBJ =
@@ -829,6 +836,15 @@ wintext.o: ../win/X11/wintext.c $(HACK_H) ../include/winX.h ../include/xwindow.h
 winval.o: ../win/X11/winval.c $(HACK_H) ../include/winX.h
 	$(CC) $(CFLAGS) $(X11CFLAGS) -c -o $@ ../win/X11/winval.c
 tile.o: tile.c $(HACK_H)
+ws_init.o: ../win/websocket/ws_init.c $(HACK_H) ../win/websocket/ws_init.h \
+        ../win/websocket/ws_socket.h
+	$(CC) $(CFLAGS) -c -o $@ ../win/websocket/ws_init.c
+ws_main.o: ../win/websocket/ws_main.c $(HACK_H) ../win/websocket/ws_init.h \
+           ../win/websocket/ws_socket.h ../win/websocket/ws_main.h
+	$(CC) $(CFLAGS) -c -o $@ ../win/websocket/ws_main.c
+ws_socket.o: ../win/websocket/ws_socket.c $(HACK_H) \
+        ../win/websocket/ws_socket.h
+	$(CC) $(CFLAGS) -c -o $@ ../win/websocket/ws_socket.c
 gnaskstr.o: ../win/gnome/gnaskstr.c ../win/gnome/gnaskstr.h \
 		../win/gnome/gnmain.h
 	$(CC) $(CFLAGS) $(GNOMEINC) -c -o $@ ../win/gnome/gnaskstr.c
